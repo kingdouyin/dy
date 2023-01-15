@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <title>配置页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h3>配置项</h3>
+      <select 
+        style="width: 100px;"
+        v-model="type" 
+        @change="handleSelectChange"
+      >
+        <option value="">请选择</option>
+        <option value="arrow">箭头</option>
+        <option value="txt">文字</option>
+      </select>
+
+      <div class="list">
+        <ul>
+          <li v-for="(item, index) in addList" :key="index">
+            <span>类型：</span><span>{{item.type}}</span>
+            <span>：</span><span>{{item.type}}</span>
+          </li>
+        </ul>
+      </div>
+      
+      <template v-if="type === 'arrow'">
+        <div style="margin-top:10px;">
+          <input type="range" step="1" min="0" max="360" v-model="arrowDeg">
+          {{arrowDeg}}
+        </div>
+      </template>
+
+      <template v-else-if="type === 'txt'">
+        <div>
+          
+        </div>
+      </template>
+
+      <div>
+        <button @click="handleAdd">添加</button>
+      </div>
+
+      <div style="margin-top: 100px;">
+        <button @click="handleSave">保存本地</button>
+        <button @click="handleDel" style="margin-left:10px;">删除本地</button>
+      </div>
+
+
+      
+      
+    </div>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.14/vue.min.js"></script>
+  <script>
+    const storage = window.localStorage
+    const app = new Vue({
+      el: '#app',
+      data: {
+        type: '',
+        arrowDeg: 90,
+        addList: []
+      },
+      mounted() {
+        const storeData = storage.getItem('color')
+        // if (storeData) {
+        //   alert('有',storeData)
+        // }else {
+        //   alert('没有')
+        // }
+      },
+      methods: {
+        handleSelectChange() {
+          console.log()
+        },
+        handleAdd() {
+          this.addList.push({
+
+          })
+        },
+        handleSave() { // 把list的数据保存
+          storage.setItem('color','red')
+        },
+        handleDel() {
+          storage.removeItem('color','red')
+        }
+      }
+    })
+  </script>
+</html>

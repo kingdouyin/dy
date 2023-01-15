@@ -1,0 +1,120 @@
+<html>
+  <head>
+    <title></title>
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" /> -->
+    <meta name="viewport" content="viewport-fit=cover">
+    <!-- <meta name="apple-mobile-web-app-capable" content="yes" /> 
+    <meta name="apple-touch-fullscreen" content="yes" /> 
+    <meta name="apple-mobile-web-app-status-bar-style" content="#0f0">
+    <meta name="browsermode" content="application">
+    <meta name="theme-color" content="#f00" /> -->
+    <style>
+      body {
+        background:#00f;
+      }
+      #animate-box {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+      }
+
+      #arrowAnim {
+        width: 50vw;
+        height: 12vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: rotate(90deg)  scale(2);
+      }
+
+      .arrow {
+        width: 5vw;
+        height: 5vw;
+        border: 2.5vw solid;
+        border-color: #4899fa transparent transparent #4899fa;
+        transform: rotate(-45deg);
+      }
+
+
+      .arrowSliding {
+        position: absolute;
+        animation: slide 2.5s linear infinite;
+      }
+
+      .delay1 {
+        animation-delay: 0.625s;
+      }
+      .delay2 {
+        animation-delay: 1.25s;
+      }
+      .delay3 {
+        animation-delay: 1.875s;
+      }
+
+
+      @keyframes slide {
+        0% { opacity:0; transform: translateX(15vw); }	
+        20% { opacity:1; transform: translateX(9vw); }	
+        80% { opacity:1; transform: translateX(-9vw); }	
+        100% { opacity:0; transform: translateX(-15vw); }	
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <button @click="handleFull" v-show="!isFull">全屏</button>
+      <div id="animate-box" v-show="showType === 'arrow'" >
+        <!-- 默认是90度是正前方 -->
+        <div id="arrowAnim" >
+          <div class="arrowSliding">
+            <div class="arrow"></div>
+          </div>
+          <div class="arrowSliding delay1">
+            <div class="arrow"></div>
+          </div>
+          <div class="arrowSliding delay2">
+            <div class="arrow"></div>
+          </div>
+          <div class="arrowSliding delay3">
+            <div class="arrow"></div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.14/vue.min.js"></script>
+  <script>
+    const storage = window.localStorage
+    const app = new Vue({
+      el: '#app',
+      data: {
+        isFull: false,
+        showType: 'arrow'
+      },
+      mounted() {
+        
+        const storeData = storage.getItem('color')
+        // if (storeData) {
+        //   alert('有',storeData)
+        // }else {
+        //   alert('没有')
+        // }
+      },
+      methods: {
+        handleFull() {
+          this.isFull = true
+          document.documentElement.requestFullscreen()
+        },
+        handleSelectChange() {
+          console.log()
+        },
+        handleSave() {
+          storage.setItem('color','red')
+        }
+      }
+    })
+  </script>
+</html>
